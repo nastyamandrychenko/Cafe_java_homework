@@ -43,15 +43,22 @@ public class RegistrationForm extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-        }
-    });
+                registerUser();
+            }
+        });
 
-    add(panel);
+        add(panel);
         setSize(700, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    private void registerUser() {
+        String username = usernameField.getText();
+        char[] passwordChar = passwordField.getPassword();
+        String password = new String(passwordChar);
+
+    };
 
 }
