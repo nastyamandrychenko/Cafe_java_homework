@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 public class RegistrationForm extends JFrame {
     private JTextField usernameField;
@@ -56,8 +59,20 @@ public class RegistrationForm extends JFrame {
 
     private void registerUser() {
         String username = usernameField.getText();
-        char[] passwordChar = passwordField.getPassword();
-        String password = new String(passwordChar);
+        char[] passwordChars = passwordField.getPassword();
+        String password = new String(passwordChars);
+
+        // Create a User object to hold the registration data
+        User user = new User(username, password);
+
+        // Serialize the User object to a file
+        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("user.ser", true))) {
+            outputStream.writeObject(user);
+            JOptionPane.showMessageDialog(this, "User registered and data saved.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error occurred while saving user data.");
+        }
+        
 
     };
 
