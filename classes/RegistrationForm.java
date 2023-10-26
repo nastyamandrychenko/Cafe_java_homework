@@ -73,6 +73,7 @@ public class RegistrationForm extends JFrame {
                 outputStream.writeObject(user);
                 JOptionPane.showMessageDialog(this, "User registered and data saved.");
             } catch (Exception e) {
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error occurred while saving user data.");
             }
             emailField.setBackground(Color.WHITE);
