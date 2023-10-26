@@ -8,10 +8,10 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-public class MainMenu extends JFrame{
+public class MainMenu extends JFrame {
     public MainMenu() {
         setTitle("Main Menu");
-        
+
         JPanel panel = new JPanel(new GridBagLayout());
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -46,11 +46,14 @@ public class MainMenu extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    private void openRegistrationForm(){
-        new RegistrationForm();
+
+    private void openRegistrationForm() {
+        dispose();// Close the main menu window
+        // Open the registration form
+        new RegistrationForm(this); // Pass a reference to the main menu
     }
-    private void openLoginForm(){
+
+    private void openLoginForm() {
         new LogInForm();
     }
 }
-
