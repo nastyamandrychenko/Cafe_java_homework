@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -15,14 +18,17 @@ public class RegistrationForm extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
     private MainMenu mainMenu;// Store a reference to the main menu
-    public RegistrationForm(MainMenu mainMenu) {
-        setTitle("Registration Form");
-        this.mainMenu = mainMenu; // Store the reference to the main menu
+    public RegistrationForm() {
+        // setTitle("Registration Form");
+        // this.mainMenu = mainMenu; // Store the reference to the main menu
+
         JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(222,55,89));
+
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(5, 50, 5, 50);
-        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.anchor = GridBagConstraints.WEST;
 
         JLabel emailLabel = new JLabel("Email");
         emailField = new JTextField(10);
@@ -69,19 +75,31 @@ public class RegistrationForm extends JFrame {
             User user = new User(email, password);
 
             // Serialize the User object to a file
-            try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("user.ser", true))) {
-                outputStream.writeObject(user);
-                JOptionPane.showMessageDialog(this, "User registered and data saved.");
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error occurred while saving user data.");
-            }
-            emailField.setBackground(Color.WHITE);
+           saveUserData(user);
+            emailField.setBackground(Color.GREEN);
         }else{
             emailField.setBackground(Color.RED);
         }
 
     };
+
+    private static void saveUserData(User user) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userdata.ser"))) {
+            oos.writeObject(user);
+            System.out.println("User data saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static User loadUserData() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userdata.ser"))) {
+            return (User) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     private boolean isValidEmail(String email) {
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";

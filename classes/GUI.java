@@ -7,7 +7,8 @@ import javax.swing.SwingUtilities;
 public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            MainMenu mainMenu = new MainMenu();
+            // MainMenu mainMenu = new MainMenu();
+            new RegistrationLoginForm().setVisible(true);
         });
     }
 }

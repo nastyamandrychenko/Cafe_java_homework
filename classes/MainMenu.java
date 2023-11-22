@@ -50,7 +50,7 @@ public class MainMenu extends JFrame {
     private void openRegistrationForm() {
         dispose();// Close the main menu window
         // Open the registration form
-        new RegistrationForm(this); // Pass a reference to the main menu
+        // new RegistrationForm(this); // Pass a reference to the main menu
     }
 
     private void openLoginForm() {
