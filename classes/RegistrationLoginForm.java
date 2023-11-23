@@ -19,6 +19,7 @@ public class RegistrationLoginForm extends JFrame {
     private JTextField emailField;
     private JPasswordField passwordField;
 
+
     public RegistrationLoginForm() {
         setTitle("Registration and Login Form");
         setSize(800, 600);
@@ -27,7 +28,7 @@ public class RegistrationLoginForm extends JFrame {
 
         // Create a main panel with GridBagLayout
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.setBackground(Color.WHITE);
+        // mainPanel.setBackground(Color.WHITE);
 
         // Create registration and login forms
         JPanel registrationFormPanel = createRegistrationFormPanel();
@@ -48,8 +49,10 @@ public class RegistrationLoginForm extends JFrame {
         // Add the main panel to the content pane
         add(mainPanel);
 
-        setVisible(true);;
+        setVisible(true);
+        ;
     }
+
     private JPanel createRegistrationFormPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(222, 55, 89));
@@ -63,8 +66,6 @@ public class RegistrationLoginForm extends JFrame {
         JLabel passwordLabel = new JLabel("Password");
         passwordField = new JPasswordField(10);
         JButton registerButton = new JButton("Register");
-
-     
 
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -96,10 +97,12 @@ public class RegistrationLoginForm extends JFrame {
      * @return
      */
     private JPanel createLoginFormPanel() {
+        
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.setBackground(new Color(89, 144, 222));
+        mainPanel.setBackground(new Color(196, 139, 225));
 
+        
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(5, 50, 5, 50);
         constraints.anchor = GridBagConstraints.WEST;
@@ -107,15 +110,14 @@ public class RegistrationLoginForm extends JFrame {
         // Create a panel for the "Sign In" label
         JPanel signInLabelPanel = new JPanel();
         signInLabelPanel.setLayout(new BoxLayout(signInLabelPanel, BoxLayout.Y_AXIS));
-        signInLabelPanel.setBackground(new Color(89, 144, 222));
-        
+        signInLabelPanel.setBackground(new Color(196, 139, 225));
+        // signInLabelPanel.setBackground(new Color(89, 144, 222));
 
         JLabel signInLabel = new JLabel("Log In");
         signInLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         signInLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         signInLabelPanel.setBorder(BorderFactory.createEmptyBorder(70, 0, 0, 0));
         signInLabelPanel.add(signInLabel);
-
 
         // Add a "Welcome back" label
         JLabel welcomeBackLabel = new JLabel("Welcome back");
@@ -133,23 +135,23 @@ public class RegistrationLoginForm extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         mainPanel.add(signInLabelPanel, constraints);
 
-
-       
         constraints.anchor = GridBagConstraints.CENTER;
         mainPanel.add(signInLabelPanel, constraints);
 
         // Create a panel for the login components
         JPanel loginComponentsPanel = new JPanel(new GridBagLayout());
-        loginComponentsPanel.setBackground(new Color(89, 144, 222));
+        loginComponentsPanel.setBackground(new Color(196, 139, 225));
         loginComponentsPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 150, 0));
         JLabel emailLabel = new JLabel("Email");
+        emailLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
+
         JTextField loginEmailField = new JTextField(10);
         JLabel passwordLabel = new JLabel("Password");
+        passwordLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
         JPasswordField loginPasswordField = new JPasswordField(10);
         JButton loginButton = createStyledButton("Log In");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-       
         constraints.anchor = GridBagConstraints.WEST;
         loginComponentsPanel.add(emailLabel, constraints);
 
@@ -170,6 +172,7 @@ public class RegistrationLoginForm extends JFrame {
         constraints.gridy = 2;
         constraints.weighty = 0.9;
         mainPanel.add(loginComponentsPanel, constraints);
+       
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -198,17 +201,15 @@ public class RegistrationLoginForm extends JFrame {
 
             @Override
             protected void paintBorder(Graphics g) {
-                g.setColor(new Color(80, 0, 160 )); // Border color
+                g.setColor(new Color(80, 0, 160)); // Border color
                 g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30); // Round rectangle border
             }
         };
 
         button.setFont(new Font("Times New Roman", Font.BOLD, 15));
-        button.setForeground(Color.WHITE);
+        // button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setContentAreaFilled(false); // Make content area transparent
-
-    
 
         return button;
     }
@@ -218,6 +219,7 @@ public class RegistrationLoginForm extends JFrame {
         // Add your login logic here using the provided email and password
         System.out.println("Login user: " + email);
     }
+
     private void registerUser() {
         String email = emailField.getText();
         char[] passwordChars = passwordField.getPassword();
@@ -227,9 +229,9 @@ public class RegistrationLoginForm extends JFrame {
             User user = new User(email, password);
 
             // Serialize the User object to a file
-           saveUserData(user);
+            saveUserData(user);
             emailField.setBackground(Color.GREEN);
-        }else{
+        } else {
             emailField.setBackground(Color.RED);
         }
 
@@ -259,8 +261,5 @@ public class RegistrationLoginForm extends JFrame {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
-
-   
 
 }
